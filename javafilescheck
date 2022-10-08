@@ -1,11 +1,7 @@
 node{dev}
 {
- def variable = tool name: "maven 3.8.6"
  stage('code from git')
- 
+ {
  git branch: 'dev', credentialsId: 'a6637bb3-d910-4ad2-be1c-e7a413417b0b', url: 'https://github.com/jarina1/maven-web-application.git'
  }
- stage('Build')
- {
- sh "${variable}/bin/mvn  clean package"
- }
+ 
