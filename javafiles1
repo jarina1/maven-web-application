@@ -1,0 +1,37 @@
+node
+{
+    def mvnHome = tool name : "maven 3.8.6"
+    stage('1.code from github')
+    {
+        git credentialsId: 'a6637bb3-d910-4ad2-be1c-e7a413417b0b', url: 'https://github.com/jarina1/maven-web-application.git'
+     }
+     stage('2.build')
+     {
+     sh "${mvnHome}/bin/mvn  clean package"  
+     }
+     stage('3.sonarqube report generate')
+     {
+       sh "${mvnHome}/bin/mvn  clean sonar:sonar"  
+     }
+     stage('4.artifact upload into nexus')
+     {
+        sh "${mvnHome}/bin/mvn  clean deploy" 
+     }
+     stage('5.deploy in to tomcat')
+     {
+         sshagent(['011f088b-c1bc-4d58-a060-a4e142850896'])
+         {
+         sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@3.109.210.73:/opt/apache-tomcat-9.0.65/webapps"
+         }
+         
+     }
+     stage('6.EmailNotification')
+     {
+         emailext body: '''Build over......
+
+
+      Regards,
+      gori
+      987654321''', subject: 'Build over', to: 'jarinadevops@gmail.com'
+     }
+}
