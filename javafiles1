@@ -23,14 +23,11 @@ node
          {
          sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@3.109.210.73:/opt/apache-tomcat-9.0.65/webapps"
          }
-         
-     }
+         }
      stage('6.EmailNotification')
      {
          emailext body: '''Build over......
-
-
-      Regards,
+       Regards,
       gori
       987654321''', subject: 'Build over', to: 'jarinadevops@gmail.com'
      }
