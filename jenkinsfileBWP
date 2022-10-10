@@ -1,0 +1,29 @@
+pipeline{
+node{
+def mvnName = tool name: "maven 3.8.6"
+parameters {
+  choice choices: ['dev', 'master', 'stage', 'test'], description: 'Branchname passing', name: 'BranchName'
+  string defaultValue: 'jareena', description: 'personNames are passing', name: 'PersonName'
+}
+{
+ stage('1.CHECKOUT CODE FROM GIT')
+ {
+ git branch:"${params.BranchName}", credentialsId: 'a6637bb3-d910-4ad2-be1c-e7a413417b0b', url: 'https://github.com/jarina1/maven-web-application.git'
+ }
+ stage('2.PASSING NAMES')
+ {
+ sh "echo the personName is:${params.PersonName}"
+ }
+ stage('3.BUILD')
+ {
+ sh "${mvnName}/bin/mvn  clean package"
+ }
+ stage('4.EMAILNOTIFICATIONS')
+ {
+ emailext body: '''build perameters passing ...........
+Regards,
+devops team,
+Banglore''', subject: 'BUILD PARAMETERS PAASING', to: 'jarinadevops@gmail.com'
+ }
+  }//node
+ }//pipeline
