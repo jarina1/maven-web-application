@@ -19,6 +19,7 @@ stages {
      sh "mvn clean package" 
     }
   }
+  */
   stage('3.EXECUTE SONARQUBE REPORT') {
     steps {
      sh "mvn clean sonar:sonar" 
@@ -30,8 +31,7 @@ stages {
     }
   }
   }//stages tag
-    */
-    post {
+        post {
   success {
     emailext body: '''BUILD GOT OVER...... SUCCESS
 Regards,
