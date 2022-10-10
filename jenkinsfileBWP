@@ -1,34 +1,21 @@
-pipeline{
-agent any
-tools {
-  maven 'maven 3.8.6'
-}
-parameters {
-  choice choices: ['dev', 'master', 'stage', 'test'], description: 'Branchname passing', name: 'BranchName'
-  string defaultValue: 'jareena', description: 'personNames are passing', name: 'PersonName'
-}
-stages{
- stage('1.CHECKOUT CODE FROM GIT')
-  {
-  steps
- {
- git branch:"${params.BranchName}", credentialsId: 'a6637bb3-d910-4ad2-be1c-e7a413417b0b', url: 'https://github.com/jarina1/maven-web-application.git'
- }
- }
- stage('2.PASSING NAMES')
- steps{
- {
- sh "echo the personName is:${params.PersonName}"
- }
- }
- stage('3.BUILD')
- {
- steps
- {
- sh "mvn clean package"
- }
- }
- }//stages
+pipeline {
+    agent any
+	parameters {
+  choice choices: ['dev', 'master', 'stage', 'test'], description: 'branch names is passing', name: 'BranchName'
+  string defaultValue: 'jareena', description: 'personname passing', name: 'PersonName'
+   }
+    stages {
+        stage('1.CODE FROM GIT') {
+            steps {
+			git branch: "${params.BranchName}", credentialsId: 'a6637bb3-d910-4ad2-be1c-e7a413417b0b', url: 'https://github.com/jarina1/maven-web-application.git'
+			 }
+        }
+		stage('2.PASSING NAMES') {
+            steps {
+			sh "echo the personname is: ${params.PersonName}"
+			 }
+        }
+		    }
  post {
   success {
     emailext body: '''BUILD GOT OVER...... SUCCESS
