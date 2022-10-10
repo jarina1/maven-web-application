@@ -54,8 +54,7 @@ git credentialsId: 'a6637bb3-d910-4ad2-be1c-e7a413417b0b', url: 'https://github.
 		 }
 		 }
 		 }//stages closing tag
-     /*
-		post {
+    post {
   always {
     emailext body: '''Build over......
       Regards,
@@ -81,5 +80,4 @@ git credentialsId: 'a6637bb3-d910-4ad2-be1c-e7a413417b0b', url: 'https://github.
       987654321''', subject: 'Build over', to: 'jarinadevops@gmail.com'
 }
 } 
-*/
 }//pipeline closing tag
