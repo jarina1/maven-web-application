@@ -13,14 +13,12 @@ stages {
       git credentialsId: 'a6637bb3-d910-4ad2-be1c-e7a413417b0b', url: 'https://github.com/jarina1/maven-web-application.git'
     }
   }
-  /*
-  stage('2.BUILD') {
+    stage('2.BUILD') {
     steps {
      sh "mvn clean package" 
     }
   }
-  */
-  stage('3.EXECUTE SONARQUBE REPORT') {
+    stage('3.EXECUTE SONARQUBE REPORT') {
     steps {
      sh "mvn clean sonar:sonar" 
     }
