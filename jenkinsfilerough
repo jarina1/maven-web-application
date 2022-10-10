@@ -13,6 +13,7 @@ stages {
       git credentialsId: 'a6637bb3-d910-4ad2-be1c-e7a413417b0b', url: 'https://github.com/jarina1/maven-web-application.git'
     }
   }
+  /*
   stage('2.BUILD') {
     steps {
      sh "mvn clean package" 
@@ -29,6 +30,7 @@ stages {
     }
   }
   }//stages tag
+    */
     post {
   success {
     emailext body: '''BUILD GOT OVER...... SUCCESS
